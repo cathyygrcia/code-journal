@@ -1,0 +1,73 @@
+body {
+  color: black;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  background-color: #562b81;
+  color: #fff;
+}
+
+nav > span {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+h1 {
+  font-family: 'Proza Libre', serif;
+}
+
+.column-full > h1 {
+  margin: 0.7rem 0;
+}
+
+img {
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  width: 100%;
+}
+
+input {
+  height: 30px;
+}
+
+textarea {
+  height: 130px;
+}
+
+.photo-wrapper,
+input,
+textarea {
+  margin-bottom: 1rem;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #562b81;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-flex-end {
+  justify-content: flex-end;
+}
+
+button {
+  background-color: #562b81;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 0.7rem;
+  text-transform: uppercase;
+}
