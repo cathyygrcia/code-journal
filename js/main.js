@@ -30,6 +30,7 @@ $entryForm.addEventListener('submit', function (event) {
 function renderEntry(entry) {
   const $entryItem = document.createElement('li');
   $entryItem.setAttribute('class', 'row');
+  $entryItem.setAttribute('data-entry-id', entry.nextEntryId);
 
   const $imageWrapper = document.createElement('div');
   $imageWrapper.setAttribute('class', 'column-half list-image');
@@ -40,16 +41,25 @@ function renderEntry(entry) {
   const $entryWrapper = document.createElement('div');
   $entryWrapper.setAttribute('class', 'column-half');
 
+  const $titleWrapper = document.createElement('div');
+  $titleWrapper.setAttribute('class', 'title-wrapper');
+
   const $title = document.createElement('h2');
   $title.textContent = entry.title;
+
+  const $pencilIcon = document.createElement('i');
+  $pencilIcon.classList.add('fas', 'fa-pencil-alt');
 
   const $notes = document.createElement('p');
   $notes.textContent = entry.notes;
 
+  $titleWrapper.appendChild($title);
+  $titleWrapper.appendChild($pencilIcon);
+
   $entryItem.appendChild($imageWrapper);
   $imageWrapper.appendChild($image);
   $entryItem.appendChild($entryWrapper);
-  $entryWrapper.appendChild($title);
+  $entryWrapper.appendChild($titleWrapper);
   $entryWrapper.appendChild($notes);
 
   return $entryItem;
