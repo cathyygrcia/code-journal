@@ -23,6 +23,8 @@ $entryForm.addEventListener('submit', function (event) {
   viewSwap('entries');
   $entryImage.setAttribute('src', entryImagePlaceholder);
   $entryForm.reset();
+
+  toggleNoEntries();
 });
 
 function renderEntry(entry) {
@@ -58,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const $entry = renderEntry(data.entries[i]);
     $ul.appendChild($entry);
   }
+  toggleNoEntries();
 });
 
 const $noEntries = document.querySelector('.no-entries');
