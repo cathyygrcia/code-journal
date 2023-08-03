@@ -23,6 +23,9 @@ h1 {
 
 img {
   width: 100%;
+}
+
+li {
   margin-bottom: 20px;
 }
 
@@ -73,10 +76,6 @@ button {
   text-transform: uppercase;
 }
 
-.hidden {
-  display: none;
-}
-
 .navbar {
   display: flex;
 }
@@ -105,4 +104,12 @@ button {
 .entry-row {
   justify-content: space-between;
   align-items: center;
+}
+
+ul {
+  padding: 0;
+}
+
+.list-image {
+  padding-left: 0;
 }

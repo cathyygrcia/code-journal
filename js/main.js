@@ -30,7 +30,7 @@ function renderEntry(entry) {
   $entryItem.setAttribute('class', 'row');
 
   const $imageWrapper = document.createElement('div');
-  $imageWrapper.setAttribute('class', 'column-half');
+  $imageWrapper.setAttribute('class', 'column-half list-image');
 
   const $image = document.createElement('img');
   $image.setAttribute('src', entry.photoUrl);
@@ -60,12 +60,17 @@ document.addEventListener('DOMContentLoaded', function (event) {
   }
 });
 
-/* const $noEntries = document.querySelector('.no-entries')
+const $noEntries = document.querySelector('.no-entries');
 
- function toggleNoEntries() {
- $noEntries.classList.toggle('hide');
+function toggleNoEntries() {
+  if (data.entries.length > 0) {
+    $noEntries.classList.add('hidden');
+  } else {
+    $noEntries.classList.remove('hidden');
+  }
+}
+toggleNoEntries();
 
-} */
 const $views = document.querySelectorAll('[data-view]');
 
 function viewSwap(view) {
