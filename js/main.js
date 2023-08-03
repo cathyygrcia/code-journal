@@ -72,7 +72,6 @@ function toggleNoEntries() {
     $noEntries.classList.remove('hidden');
   }
 }
-toggleNoEntries();
 
 const $views = document.querySelectorAll('[data-view]');
 
