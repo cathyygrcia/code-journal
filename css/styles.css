@@ -25,6 +25,10 @@ img {
   width: 100%;
 }
 
+li {
+  margin-bottom: 20px;
+}
+
 label {
   display: block;
   font-weight: 600;
@@ -70,4 +74,42 @@ button {
   border-radius: 5px;
   padding: 0.3rem 0.7rem;
   text-transform: uppercase;
+}
+
+.navbar {
+  display: flex;
+}
+
+.show-entries {
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  justify-content: center;
+  margin-left: 15px;
+  margin-top: 7px;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.no-entries {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.entry-row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul {
+  padding: 0;
+}
+
+.list-image {
+  padding-left: 0;
 }

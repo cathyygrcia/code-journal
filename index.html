@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
     <header>
       <div class="container">
         <nav class="navbar column-full">
           <span>Code Journal</span>
+          <a href="#" id="show-entries" class="show-entries">Entries</a>
         </nav>
       </div>
     </header>
@@ -52,7 +54,22 @@
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden"></div>
+      <div data-view="entries" class="hidden">
+        <div class="row entry-row">
+          <div>
+            <h1>Entries</h1>
+          </div>
+          <div>
+            <button class="new-button">NEW</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-full">
+            <div class="no-entries">No entries have been recorded.</div>
+          </div>
+        </div>
+        <ul class="entry-ul" id="entryUl"></ul>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
