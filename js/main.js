@@ -17,20 +17,33 @@ $entryForm.addEventListener('submit', function (event) {
     photoUrl: event.target.elements.photoUrl.value,
     notes: event.target.elements.notes.value,
   };
-  data.nextEntryId++;
-  data.entries.unshift(entry);
-  $ul.prepend(renderEntry(entry));
-  viewSwap('entries');
-  $entryImage.setAttribute('src', entryImagePlaceholder);
-  $entryForm.reset();
 
-  toggleNoEntries();
+  if (data.editing === null) {
+    data.nextEntryId++;
+    data.entries.unshift(entry);
+    $ul.prepend(renderEntry(entry));
+    $entryImage.setAttribute('src', entryImagePlaceholder);
+    toggleNoEntries();
+  } else {
+    data.editing.entryId = entry.entryId;
+    data.entries[data.entries.length - entry.entryId] = entry;
+    const $li = document.querySelectorAll('li');
+    for (let i = 0; i < $li.length; i++) {
+      if (entry.entryId === Number($li[i].getAttribute('data-entry-id'))) {
+        $li[i].replaceWith(renderEntry(entry));
+      }
+    }
+    $h1.textContent = 'New Entry';
+    data.editing = null;
+  }
+  $entryForm.reset();
+  viewSwap('entries');
 });
 
 function renderEntry(entry) {
   const $entryItem = document.createElement('li');
   $entryItem.setAttribute('class', 'row');
-  $entryItem.setAttribute('data-entry-id', entry.nextEntryId);
+  $entryItem.setAttribute('data-entry-id', entry.entryId);
 
   const $imageWrapper = document.createElement('div');
   $imageWrapper.setAttribute('class', 'column-half list-image');
@@ -105,4 +118,29 @@ const $newButton = document.querySelector('.new-button');
 
 $newButton.addEventListener('click', function (event) {
   viewSwap('entry-form');
+});
+
+const $entryTitle = document.querySelector('#title');
+const $entryNotes = document.querySelector('#notes');
+const $h1 = document.querySelector('h1');
+
+$ul.addEventListener('click', function pencilClick(event) {
+  if (event.target.tagName === 'I') {
+    const dataEntryId = event.target
+      .closest('li')
+      .getAttribute('data-entry-id');
+
+    viewSwap('entry-form');
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === Number(dataEntryId)) {
+        data.editing = data.entries[i];
+
+        $entryTitle.value = data.editing.title;
+        $entryNotes.value = data.editing.notes;
+        $photoUrlInput.value = data.editing.photoUrl;
+        $entryImage.setAttribute('src', data.editing.photoUrl);
+        $h1.textContent = 'Edit Entry';
+      }
+    }
+  }
 });
