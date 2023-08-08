@@ -11,31 +11,35 @@ $photoUrlInput.addEventListener('input', function (event) {
 
 $entryForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  const entry = {
-    entryId: data.nextEntryId,
-    title: event.target.elements.title.value,
-    photoUrl: event.target.elements.photoUrl.value,
-    notes: event.target.elements.notes.value,
-  };
 
   if (data.editing === null) {
+    $h1.textContent = 'New Entry';
+    const entry = {
+      entryId: data.nextEntryId,
+      title: event.target.elements.title.value,
+      photoUrl: event.target.elements.photoUrl.value,
+      notes: event.target.elements.notes.value,
+    };
+
     data.nextEntryId++;
     data.entries.unshift(entry);
     $ul.prepend(renderEntry(entry));
     $entryImage.setAttribute('src', entryImagePlaceholder);
     toggleNoEntries();
+    $entryForm.reset();
   } else {
-    data.editing.entryId = entry.entryId;
-    data.entries[data.entries.length - entry.entryId] = entry;
+    $h1.textContent = 'Edit Entry';
     const $li = document.querySelectorAll('li');
-    for (let i = 0; i < $li.length; i++) {
-      if (entry.entryId === Number($li[i].getAttribute('data-entry-id'))) {
-        $li[i].replaceWith(renderEntry(entry));
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing.entryId) {
+        data.entries[i].title = event.target.elements.title.value;
+        data.entries[i].photoUrl = event.target.elements.photoUrl.value;
+        data.entries[i].notes = event.target.elements.notes.value;
+        $li[i].replaceWith(renderEntry(data.entries[i]));
       }
     }
-    $h1.textContent = 'New Entry';
-    data.editing = null;
   }
+  data.editing = null;
   $entryForm.reset();
   viewSwap('entries');
 });
@@ -106,6 +110,11 @@ function viewSwap(view) {
     } else {
       $views[i].classList.add('hidden');
     }
+    if (data.view === 'entry-form') {
+      $entryForm.reset();
+      $entryImage.setAttribute('src', entryImagePlaceholder);
+      $h1.textContent = 'New Entry';
+    }
   }
 }
 const $showEntriesLink = document.querySelector('.show-entries');
@@ -134,7 +143,6 @@ $ul.addEventListener('click', function pencilClick(event) {
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === Number(dataEntryId)) {
         data.editing = data.entries[i];
-
         $entryTitle.value = data.editing.title;
         $entryNotes.value = data.editing.notes;
         $photoUrlInput.value = data.editing.photoUrl;
