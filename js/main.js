@@ -110,11 +110,6 @@ function viewSwap(view) {
     } else {
       $views[i].classList.add('hidden');
     }
-    if (data.view === 'entry-form') {
-      $entryForm.reset();
-      $entryImage.setAttribute('src', entryImagePlaceholder);
-      $h1.textContent = 'New Entry';
-    }
   }
 }
 const $showEntriesLink = document.querySelector('.show-entries');
@@ -127,6 +122,9 @@ const $newButton = document.querySelector('.new-button');
 
 $newButton.addEventListener('click', function (event) {
   viewSwap('entry-form');
+  $entryForm.reset();
+  $entryImage.setAttribute('src', entryImagePlaceholder);
+  $h1.textContent = 'New Entry';
 });
 
 const $entryTitle = document.querySelector('#title');
@@ -139,7 +137,6 @@ $ul.addEventListener('click', function pencilClick(event) {
       .closest('li')
       .getAttribute('data-entry-id');
 
-    viewSwap('entry-form');
     for (let i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === Number(dataEntryId)) {
         data.editing = data.entries[i];
@@ -150,5 +147,6 @@ $ul.addEventListener('click', function pencilClick(event) {
         $h1.textContent = 'Edit Entry';
       }
     }
+    viewSwap('entry-form');
   }
 });
