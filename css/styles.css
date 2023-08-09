@@ -78,6 +78,8 @@ button {
 
 .navbar {
   display: flex;
+
+  /* padding-left: 0; */
 }
 
 .show-entries {
@@ -110,6 +112,15 @@ ul {
   padding: 0;
 }
 
-.list-image {
-  padding-left: 0;
+.title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #562b81;
+}
+
+.entries-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
