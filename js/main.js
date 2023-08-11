@@ -4,6 +4,10 @@ const $photoUrlInput = document.querySelector('#photo-url');
 const $entryImage = document.querySelector('#entry-image');
 const $entryForm = document.querySelector('#entry-form');
 const $ul = document.querySelector('.entry-ul');
+const $confirmationModal = document.getElementById('confirmationModal');
+const $deleteButton = document.querySelector('.delete-button');
+const $confirmDeleteButton = document.querySelector('.confirm-delete-button');
+const $cancelDeleteButton = document.querySelector('.cancel-delete-button');
 
 $photoUrlInput.addEventListener('input', function (event) {
   $entryImage.setAttribute('src', event.target.value);
@@ -42,6 +46,27 @@ $entryForm.addEventListener('submit', function (event) {
   data.editing = null;
   $entryForm.reset();
   viewSwap('entries');
+});
+
+$deleteButton.addEventListener('click', function () {
+  $confirmationModal.style.display = 'flex';
+});
+
+$confirmDeleteButton.addEventListener('click', function () {
+  const $li = document.querySelectorAll('li');
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      data.entries.splice(i, 1);
+      $ul.removeChild($li[i]);
+    }
+  }
+  toggleNoEntries();
+  $confirmationModal.style.display = 'none';
+  viewSwap('entries');
+});
+
+$cancelDeleteButton.addEventListener('click', function () {
+  $confirmationModal.style.display = 'none';
 });
 
 function renderEntry(entry) {
@@ -86,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     const $entry = renderEntry(data.entries[i]);
     $ul.appendChild($entry);
+    document.querySelector('.delete-button').classList.add('hidden');
   }
   toggleNoEntries();
 });
@@ -125,6 +151,7 @@ $newButton.addEventListener('click', function (event) {
   $entryForm.reset();
   $entryImage.setAttribute('src', entryImagePlaceholder);
   $h1.textContent = 'New Entry';
+  document.querySelector('.delete-button').classList.add('hidden');
 });
 
 const $entryTitle = document.querySelector('#title');
@@ -145,6 +172,7 @@ $ul.addEventListener('click', function pencilClick(event) {
         $photoUrlInput.value = data.editing.photoUrl;
         $entryImage.setAttribute('src', data.editing.photoUrl);
         $h1.textContent = 'Edit Entry';
+        document.querySelector('.delete-button').classList.remove('hidden');
       }
     }
     viewSwap('entry-form');
