@@ -1,5 +1,4 @@
 const entryImagePlaceholder = 'images/placeholder-image-square.jpg';
-
 const $photoUrlInput = document.querySelector('#photo-url');
 const $entryImage = document.querySelector('#entry-image');
 const $entryForm = document.querySelector('#entry-form');
@@ -52,7 +51,7 @@ $deleteButton.addEventListener('click', function () {
   $confirmationModal.style.display = 'flex';
 });
 
-$confirmDeleteButton.addEventListener('click', function () {
+$cancelDeleteButton.addEventListener('click', function () {
   const $li = document.querySelectorAll('li');
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === data.editing.entryId) {
@@ -65,7 +64,7 @@ $confirmDeleteButton.addEventListener('click', function () {
   viewSwap('entries');
 });
 
-$cancelDeleteButton.addEventListener('click', function () {
+$confirmDeleteButton.addEventListener('click', function () {
   $confirmationModal.style.display = 'none';
 });
 
