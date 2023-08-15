@@ -1,9 +1,12 @@
 const entryImagePlaceholder = 'images/placeholder-image-square.jpg';
-
 const $photoUrlInput = document.querySelector('#photo-url');
 const $entryImage = document.querySelector('#entry-image');
 const $entryForm = document.querySelector('#entry-form');
 const $ul = document.querySelector('.entry-ul');
+const $confirmationModal = document.getElementById('confirmationModal');
+const $deleteButton = document.querySelector('.delete-button');
+const $confirmDeleteButton = document.querySelector('.confirm-delete-button');
+const $cancelDeleteButton = document.querySelector('.cancel-delete-button');
 
 $photoUrlInput.addEventListener('input', function (event) {
   $entryImage.setAttribute('src', event.target.value);
@@ -42,6 +45,28 @@ $entryForm.addEventListener('submit', function (event) {
   data.editing = null;
   $entryForm.reset();
   viewSwap('entries');
+});
+
+$deleteButton.addEventListener('click', function () {
+  $confirmationModal.style.display = 'flex';
+});
+
+$cancelDeleteButton.addEventListener('click', function () {
+  const $li = document.querySelectorAll('li');
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      data.entries.splice(i, 1);
+      $ul.removeChild($li[i]);
+    }
+  }
+  data.editing = null;
+  toggleNoEntries();
+  $confirmationModal.style.display = 'none';
+  viewSwap('entries');
+});
+
+$confirmDeleteButton.addEventListener('click', function () {
+  $confirmationModal.style.display = 'none';
 });
 
 function renderEntry(entry) {
@@ -121,6 +146,7 @@ $showEntriesLink.addEventListener('click', function (event) {
 const $newButton = document.querySelector('.new-button');
 
 $newButton.addEventListener('click', function (event) {
+  document.querySelector('.delete-button').classList.add('hidden');
   viewSwap('entry-form');
   $entryForm.reset();
   $entryImage.setAttribute('src', entryImagePlaceholder);
@@ -145,6 +171,7 @@ $ul.addEventListener('click', function pencilClick(event) {
         $photoUrlInput.value = data.editing.photoUrl;
         $entryImage.setAttribute('src', data.editing.photoUrl);
         $h1.textContent = 'Edit Entry';
+        document.querySelector('.delete-button').classList.remove('hidden');
       }
     }
     viewSwap('entry-form');
