@@ -59,6 +59,7 @@ $cancelDeleteButton.addEventListener('click', function () {
       $ul.removeChild($li[i]);
     }
   }
+  data.editing = null;
   toggleNoEntries();
   $confirmationModal.style.display = 'none';
   viewSwap('entries');
@@ -110,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     const $entry = renderEntry(data.entries[i]);
     $ul.appendChild($entry);
-    document.querySelector('.delete-button').classList.add('hidden');
+    // document.querySelector('.delete-button').classList.add('hidden');
   }
   toggleNoEntries();
 });
@@ -146,11 +147,12 @@ $showEntriesLink.addEventListener('click', function (event) {
 const $newButton = document.querySelector('.new-button');
 
 $newButton.addEventListener('click', function (event) {
+  document.querySelector('.delete-button').classList.add('hidden');
   viewSwap('entry-form');
   $entryForm.reset();
   $entryImage.setAttribute('src', entryImagePlaceholder);
   $h1.textContent = 'New Entry';
-  document.querySelector('.delete-button').classList.add('hidden');
+  // document.querySelector('.delete-button').classList.add('hidden');
 });
 
 const $entryTitle = document.querySelector('#title');
