@@ -111,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (let i = 0; i < data.entries.length; i++) {
     const $entry = renderEntry(data.entries[i]);
     $ul.appendChild($entry);
-    // document.querySelector('.delete-button').classList.add('hidden');
   }
   toggleNoEntries();
 });
@@ -152,7 +151,6 @@ $newButton.addEventListener('click', function (event) {
   $entryForm.reset();
   $entryImage.setAttribute('src', entryImagePlaceholder);
   $h1.textContent = 'New Entry';
-  // document.querySelector('.delete-button').classList.add('hidden');
 });
 
 const $entryTitle = document.querySelector('#title');
